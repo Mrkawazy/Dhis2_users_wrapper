@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Analytics Hub · Tableau Dashboards</title>
+  <meta name="description" content="Curated Tableau dashboards: Campaign, CBS, and NHIS" />
+  <link rel="preconnect" href="https://public.tableau.com">
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="logo"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.77 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z"/></svg>
+      <div class="titles">
+        <h1>MINISTRY OF HEALTH AND CHILD CARE - HEALTH INFORMATICS AND DATA ANALYTICS Users Analytics Hub</h1>
+        <p class="subtitle">Campaign · CBS · NHIS</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" class="btn" aria-label="Toggle dark mode">🌓</button>
+      <button id="viewAllToggle" class="btn" aria-pressed="false">🔳 View All</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Dashboards">
+    <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-campaign" id="tab-campaign" data-target="campaign">Campaign</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-cbs" id="tab-cbs" data-target="cbs">CBS</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-nhis" id="tab-nhis" data-target="nhis">NHIS</button>
+  </nav>
+
+  <main id="content" class="content" tabindex="-1">
+    <!-- Cards container (grid when View All is on) -->
+    <section class="cards" id="cards">
+
+      <article class="card active" id="panel-campaign" role="tabpanel" aria-labelledby="tab-campaign">
+        <header class="card-header">
+          <h2>Campaign Dashboard</h2>
+          <div class="card-actions">
+            <button class="btn small" data-action="copylink" data-slug="campaign">Copy Link</button>
+            <button class="btn small" data-action="reload" data-frame="frame-campaign">Reload</button>
+          </div>
+        </header>
+        <div class="viz-wrap">
+          <iframe id="frame-campaign" title="Campaign Dashboard"
+            loading="lazy"
+            allowfullscreen
+            src="https://public.tableau.com/views/DhisUsers-Campaign/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
+          </iframe>
+        </div>
+        <footer class="card-footer">Source: Tableau Public</footer>
+      </article>
+
+      <article class="card" id="panel-cbs" role="tabpanel" aria-labelledby="tab-cbs">
+        <header class="card-header">
+          <h2>CBS Dashboard</h2>
+          <div class="card-actions">
+            <button class="btn small" data-action="copylink" data-slug="cbs">Copy Link</button>
+            <button class="btn small" data-action="reload" data-frame="frame-cbs">Reload</button>
+          </div>
+        </header>
+        <div class="viz-wrap">
+          <iframe id="frame-cbs" title="CBS Dashboard"
+            loading="lazy"
+            allowfullscreen
+            src="https://public.tableau.com/views/DhisUsers-CBS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
+          </iframe>
+        </div>
+        <footer class="card-footer">Source: Tableau Public</footer>
+      </article>
+
+      <article class="card" id="panel-nhis" role="tabpanel" aria-labelledby="tab-nhis">
+        <header class="card-header">
+          <h2>NHIS Dashboard</h2>
+          <div class="card-actions">
+            <button class="btn small" data-action="copylink" data-slug="nhis">Copy Link</button>
+            <button class="btn small" data-action="reload" data-frame="frame-nhis">Reload</button>
+          </div>
+        </header>
+        <div class="viz-wrap">
+          <iframe id="frame-nhis" title="NHIS Dashboard"
+            loading="lazy"
+            allowfullscreen
+            src="https://public.tableau.com/views/DhisUsers-NHIS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
+          </iframe>
+        </div>
+        <footer class="card-footer">Source: Tableau Public</footer>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="left">
+      <span id="year"></span> · Built for HMIS HQ
+    </div>
+    <div class="right">
+      <a href="#about" id="aboutLink">About</a>
+      <a href="https://public.tableau.com/" target="_blank" rel="noreferrer">Tableau Public</a>
+    </div>
+  </footer>
+
+  <!-- About Modal -->
+  <dialog id="aboutDialog">
+    <form method="dialog" class="about">
+      <h3>About this site</h3>
+      <p>This lightweight, accessible gallery hosts three Tableau dashboards with deep links, dark mode, and a view-all option. Add more by duplicating a card in <code>index.html</code>.</p>
+      <menu>
+        <button class="btn" value="cancel">Close</button>
+      </menu>
+    </form>
+  </dialog>
+</body>
+</html>
