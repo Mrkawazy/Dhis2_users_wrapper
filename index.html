@@ -15,7 +15,7 @@
       <svg viewBox="0 0 24 24" aria-hidden="true" class="logo"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.77 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z"/></svg>
       <div class="titles">
         <h1>MINISTRY OF HEALTH AND CHILD CARE - HEALTH INFORMATICS AND DATA ANALYTICS Users Analytics Hub</h1>
-        <p class="subtitle">Campaign · CBS · NHIS</p>
+        <p class="subtitle">Campaign · CBS · NHIS · CHMIS · IMPILO</p>
       </div>
     </div>
     <div class="header-actions">
@@ -28,6 +28,8 @@
     <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-campaign" id="tab-campaign" data-target="campaign">Campaign</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="panel-cbs" id="tab-cbs" data-target="cbs">CBS</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="panel-nhis" id="tab-nhis" data-target="nhis">NHIS</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-chmis" id="tab-chmis" data-target="chmis">CHMIS</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-impilo" id="tab-impilo" data-target="impilo">Impilo</button>
   </nav>
 
   <main id="content" class="content" tabindex="-1">
@@ -88,6 +90,40 @@
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
 
+<article class="card" id="panel-chmis" role="tabpanel" aria-labelledby="tab-chmis">
+        <header class="card-header">
+          <h2>CHMIS Dashboard</h2>
+          <div class="card-actions">
+            <button class="btn small" data-action="copylink" data-slug="chmis">Copy Link</button>
+            <button class="btn small" data-action="reload" data-frame="frame-chmis">Reload</button>
+          </div>
+        </header>
+        <div class="viz-wrap">
+          <iframe id="frame-chmis" title="CHMIS Dashboard"
+            loading="lazy"
+            allowfullscreen
+            src="https://public.tableau.com/views/DhisUsers-CHIMS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
+          </iframe>
+        </div>
+        <footer class="card-footer">Source: Tableau Public</footer>
+      </article>
+<article class="card" id="panel-impilo" role="tabpanel" aria-labelledby="tab-impilo">
+        <header class="card-header">
+          <h2>Impilo Dashboard</h2>
+          <div class="card-actions">
+            <button class="btn small" data-action="copylink" data-slug="impilo">Copy Link</button>
+            <button class="btn small" data-action="reload" data-frame="frame-impilo">Reload</button>
+          </div>
+        </header>
+        <div class="viz-wrap">
+          <iframe id="frame-impilo" title="Impilo Dashboard"
+            loading="lazy"
+            allowfullscreen
+            src="https://public.tableau.com/views/DhisUsers-Impilo/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
+          </iframe>
+        </div>
+        <footer class="card-footer">Source: Tableau Public</footer>
+      </article>
     </section>
   </main>
 
