@@ -4,177 +4,165 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Analytics Hub · Tableau Dashboards</title>
-  <meta name="description" content="Curated Tableau dashboards: Campaign, CBS, and NHIS" />
   <link rel="preconnect" href="https://public.tableau.com">
-  <link rel="stylesheet" href="assets/style.css" />
-  <script defer src="assets/app.js"></script>
-  <!-- Firebase -->
-  <script type="module" src="/assets/firebaseConfig.js"></script>
-  <script type="module" src="/assets/auth.js"></script>
-  <style>
-    #authGate { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.6); color: #fff; z-index: 9999; font: 600 1rem/1.2 system-ui; }
-    #authGate.hidden { display:none; }
-    .auth-actions { display:flex; gap:.5rem; align-items:center; }
-  </style>
+
+  <!-- Styles & behavior -->
+  <link rel="stylesheet" href="./assets/style.css" />
+  <script defer src="./assets/app.js"></script>
+
+  <!-- (Optional) Firebase guard -->
+  <script type="module" src="./assets/firebaseConfig.js"></script>
+  <script type="module" src="./assets/auth.js"></script>
 </head>
 <body>
   <div id="authGate">Checking access…</div>
 
   <header class="site-header">
     <div class="brand">
-      <svg viewBox="0 0 24 24" aria-hidden="true" class="logo"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.77 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="logo">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.77 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z"/>
+      </svg>
       <div class="titles">
         <h1>MINISTRY OF HEALTH AND CHILD CARE - HEALTH INFORMATICS AND DATA ANALYTICS Users Analytics Hub</h1>
         <p class="subtitle">Campaign · CBS · NHIS · CHMIS · IMPILO</p>
       </div>
     </div>
-    <div class="header-actions auth-actions">
-      <button id="themeToggle" class="btn" aria-label="Toggle dark mode">🌓</button>
+
+    <div class="header-actions">
       <button id="viewAllToggle" class="btn" aria-pressed="false">🔳 View All</button>
-      <span id="who" style="opacity:.8"></span>
-      <a class="btn" href="/auth/login.html" id="loginLink">Login</a>
+      <button id="wideToggle" class="btn" aria-pressed="false" title="Wider canvas">🖥️ Wide</button>
+      <span id="who" class="muted"></span>
+      <a class="btn" href="./auth/login.html" id="loginLink">Login</a>
       <button class="btn" id="logoutBtn" style="display:none">Logout</button>
     </div>
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Dashboards">
-    <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-campaign" id="tab-campaign" data-target="campaign">Campaign</button>
-    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-cbs" id="tab-cbs" data-target="cbs">CBS</button>
-    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-nhis" id="tab-nhis" data-target="nhis">NHIS</button>
-    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-chmis" id="tab-chmis" data-target="chmis">CHMIS</button>
-    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-impilo" id="tab-impilo" data-target="impilo">Impilo</button>
+    <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-campaign" data-target="campaign">Campaign</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-cbs" data-target="cbs">CBS</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-nhis" data-target="nhis">NHIS</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-chmis" data-target="chmis">CHMIS</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-impilo" data-target="impilo">Impilo</button>
   </nav>
 
   <main id="content" class="content" tabindex="-1">
-    <section class="cards" id="cards">
+    <section class="cards">
+
+      <!-- Campaign -->
       <article class="card active" id="panel-campaign" role="tabpanel" aria-labelledby="tab-campaign">
         <header class="card-header">
           <h2>Campaign Dashboard</h2>
           <div class="card-actions">
             <button class="btn small" data-action="copylink" data-slug="campaign">Copy Link</button>
             <button class="btn small" data-action="reload" data-frame="frame-campaign">Reload</button>
+            <!-- NEW: fullscreen button -->
+            <button class="btn small" data-action="fullscreen" data-target="panel-campaign">Full Screen</button>
           </div>
         </header>
         <div class="viz-wrap">
-          <iframe id="frame-campaign" title="Campaign Dashboard"
-            loading="lazy"
-            allowfullscreen
-            src="https://public.tableau.com/views/DhisUsers-Campaign/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
-          </iframe>
+          <!-- Lazy-load: use data-src (no src initially) -->
+          <iframe id="frame-campaign" title="Campaign Dashboard" loading="lazy" allowfullscreen
+            data-src="https://public.tableau.com/views/DhisUsers-Campaign/Dashboard?:showVizHome=no&:embed=y&toolbar=yes"></iframe>
         </div>
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
 
+      <!-- CBS -->
       <article class="card" id="panel-cbs" role="tabpanel" aria-labelledby="tab-cbs">
         <header class="card-header">
           <h2>CBS Dashboard</h2>
           <div class="card-actions">
             <button class="btn small" data-action="copylink" data-slug="cbs">Copy Link</button>
             <button class="btn small" data-action="reload" data-frame="frame-cbs">Reload</button>
+            <button class="btn small" data-action="fullscreen" data-target="panel-cbs">Full Screen</button>
           </div>
         </header>
         <div class="viz-wrap">
-          <iframe id="frame-cbs" title="CBS Dashboard"
-            loading="lazy"
-            allowfullscreen
-            src="https://public.tableau.com/views/DhisUsers-CBS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
-          </iframe>
+          <iframe id="frame-cbs" title="CBS Dashboard" loading="lazy" allowfullscreen
+            data-src="https://public.tableau.com/views/DhisUsers-CBS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes"></iframe>
         </div>
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
 
+      <!-- NHIS -->
       <article class="card" id="panel-nhis" role="tabpanel" aria-labelledby="tab-nhis">
         <header class="card-header">
           <h2>NHIS Dashboard</h2>
           <div class="card-actions">
             <button class="btn small" data-action="copylink" data-slug="nhis">Copy Link</button>
             <button class="btn small" data-action="reload" data-frame="frame-nhis">Reload</button>
+            <button class="btn small" data-action="fullscreen" data-target="panel-nhis">Full Screen</button>
           </div>
         </header>
         <div class="viz-wrap">
-          <iframe id="frame-nhis" title="NHIS Dashboard"
-            loading="lazy"
-            allowfullscreen
-            src="https://public.tableau.com/views/DhisUsers-NHIS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
-          </iframe>
+          <iframe id="frame-nhis" title="NHIS Dashboard" loading="lazy" allowfullscreen
+            data-src="https://public.tableau.com/views/DhisUsers-NHIS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes"></iframe>
         </div>
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
 
+      <!-- CHMIS -->
       <article class="card" id="panel-chmis" role="tabpanel" aria-labelledby="tab-chmis">
         <header class="card-header">
           <h2>CHMIS Dashboard</h2>
           <div class="card-actions">
             <button class="btn small" data-action="copylink" data-slug="chmis">Copy Link</button>
             <button class="btn small" data-action="reload" data-frame="frame-chmis">Reload</button>
+            <button class="btn small" data-action="fullscreen" data-target="panel-chmis">Full Screen</button>
           </div>
         </header>
         <div class="viz-wrap">
-          <iframe id="frame-chmis" title="CHMIS Dashboard"
-            loading="lazy"
-            allowfullscreen
-            src="https://public.tableau.com/views/DhisUsers-CHIMS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
-          </iframe>
+          <iframe id="frame-chmis" title="CHMIS Dashboard" loading="lazy" allowfullscreen
+            data-src="https://public.tableau.com/views/DhisUsers-CHIMS/Dashboard?:showVizHome=no&:embed=y&toolbar=yes"></iframe>
         </div>
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
 
+      <!-- Impilo -->
       <article class="card" id="panel-impilo" role="tabpanel" aria-labelledby="tab-impilo">
         <header class="card-header">
           <h2>Impilo Dashboard</h2>
           <div class="card-actions">
             <button class="btn small" data-action="copylink" data-slug="impilo">Copy Link</button>
             <button class="btn small" data-action="reload" data-frame="frame-impilo">Reload</button>
+            <button class="btn small" data-action="fullscreen" data-target="panel-impilo">Full Screen</button>
           </div>
         </header>
         <div class="viz-wrap">
-          <iframe id="frame-impilo" title="Impilo Dashboard"
-            loading="lazy"
-            allowfullscreen
-            src="https://public.tableau.com/views/DhisUsers-Impilo/Dashboard?:showVizHome=no&:embed=y&toolbar=yes">
-          </iframe>
+          <iframe id="frame-impilo" title="Impilo Dashboard" loading="lazy" allowfullscreen
+            data-src="https://public.tableau.com/views/DhisUsers-Impilo/Dashboard?:showVizHome=no&:embed=y&toolbar=yes"></iframe>
         </div>
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
+
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="left">
-      <span id="year"></span> · Built for HMIS HQ
-    </div>
+    <div class="left"><span id="year"></span> · Built for HMIS HQ</div>
     <div class="right">
       <a href="#about" id="aboutLink">About</a>
       <a href="https://public.tableau.com/" target="_blank" rel="noreferrer">Tableau Public</a>
     </div>
   </footer>
 
-  <dialog id="aboutDialog">
-    <form method="dialog" class="about">
-      <h3>About this site</h3>
-      <p>This gallery hosts Tableau dashboards behind a login + admin approval gate.</p>
-      <menu>
-        <button class="btn" value="cancel">Close</button>
-      </menu>
-    </form>
-  </dialog>
-
+  <!-- (Optional) lock behind auth -->
   <script type="module">
-    import { guardDashboard, onSignOutClick } from '/assets/auth.js';
-    guardDashboard({
-      onApproved: async (user) => {
+    import { guardDashboard, onSignOutClick } from './assets/auth.js';
+    guardDashboard?.({
+      onApproved: (user) => {
         document.getElementById('authGate').classList.add('hidden');
         document.getElementById('loginLink').style.display = 'none';
         document.getElementById('logoutBtn').style.display = 'inline-flex';
-        document.getElementById('who').textContent = user.email ?? '';
+        document.getElementById('who').textContent = user?.email ?? '';
       },
       onPending: () => {
         const g = document.getElementById('authGate');
-        g.textContent = 'Your account is pending approval by an administrator. You will be signed out.';
-        setTimeout(() => location.href = '/auth/login.html?pending=1', 1200);
+        g.textContent = 'Your account is pending approval.';
+        setTimeout(() => location.href = './auth/login.html?pending=1', 1200);
       }
     });
-    document.getElementById('logoutBtn').addEventListener('click', onSignOutClick);
+    document.getElementById('logoutBtn')?.addEventListener('click', onSignOutClick);
   </script>
 </body>
 </html>
