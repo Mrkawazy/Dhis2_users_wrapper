@@ -1,4 +1,4 @@
-// Wider canvas + one-at-a-time + full-screen support
+// One-at-a-time view, exact full-height sizing, view-all tiles, wide & fullscreen
 (function () {
   const tabs  = Array.from(document.querySelectorAll('.tabs .tab'));
   const cards = Array.from(document.querySelectorAll('.cards .card'));
@@ -8,17 +8,14 @@
   const qs  = (s, r=document) => r.querySelector(s);
   const qsa = (s, r=document) => Array.from(r.querySelectorAll(s));
 
-  // Lazy-load iframe only when needed
   function ensureIframeLoaded(cardEl) {
     const iframe = cardEl.querySelector('iframe');
-    if (!iframe) return;
-    if (!iframe.src || iframe.src === 'about:blank') {
+    if (iframe && (!iframe.src || iframe.src === 'about:blank')) {
       const src = iframe.getAttribute('data-src');
       if (src) iframe.src = src;
     }
   }
 
-  // Activate tab → show only its card
   function setActive(targetSlug) {
     tabs.forEach(t => {
       const on = t.dataset.target === targetSlug;
@@ -34,9 +31,8 @@
     sizeActive();
   }
 
-  // Compute exact height for the active viz so it fills viewport
   function sizeActive() {
-    if (document.body.classList.contains('view-all')) return; // grid mode
+    if (document.body.classList.contains('view-all')) return;
     const card = qs('.card.active');
     if (!card) return;
 
@@ -48,7 +44,7 @@
 
     const cardHeaderH = qs('.card.active .card-header')?.offsetHeight || 0;
     const cardFooterH = qs('.card.active .card-footer')?.offsetHeight || 0;
-    const padding     = 16; // small breathing room
+    const padding     = 16;
 
     const availableForCard = window.innerHeight - (headerH + tabsH + contentPad + padding);
     const availableForViz  = availableForCard - (cardHeaderH + cardFooterH);
@@ -58,7 +54,7 @@
     if (viz) viz.style.height = Math.max(260, availableForViz) + 'px';
   }
 
-  // Tab clicks
+  // Tabs
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       setActive(tab.dataset.target);
@@ -68,7 +64,7 @@
     });
   });
 
-  // View-All toggle (grid)
+  // View-all grid
   viewAllToggle?.addEventListener('click', () => {
     const pressed = viewAllToggle.getAttribute('aria-pressed') === 'true';
     const next = !pressed;
@@ -83,7 +79,7 @@
     }
   });
 
-  // Wider canvas toggle (edge-to-edge)
+  // Wider canvas (edge-to-edge)
   wideToggle?.addEventListener('click', () => {
     const pressed = wideToggle.getAttribute('aria-pressed') === 'true';
     const next = !pressed;
@@ -92,19 +88,16 @@
     sizeActive();
   });
 
-  // Full screen button per card (uses native Fullscreen API)
+  // Full screen per card
   document.addEventListener('click', async (e) => {
     const btn = e.target.closest('button[data-action="fullscreen"]');
     if (!btn) return;
     const targetId = btn.getAttribute('data-target');
     const panel = document.getElementById(targetId);
-    const viz   = panel?.querySelector('.viz-wrap');
-
+    const viz = panel?.querySelector('.viz-wrap');
     if (!viz) return;
-
     try {
       if (!document.fullscreenElement) {
-        // ensure iframe is loaded before fullscreen
         ensureIframeLoaded(panel);
         await (viz.requestFullscreen?.() || panel.requestFullscreen?.());
         btn.textContent = 'Exit Full Screen';
@@ -113,13 +106,11 @@
         btn.textContent = 'Full Screen';
       }
     } catch {
-      // fallback: open the iframe in a new tab if fullscreen not supported
       const url = panel.querySelector('iframe')?.getAttribute('data-src') || panel.querySelector('iframe')?.src;
       if (url) window.open(url, '_blank');
     }
   });
 
-  // Keep grid lazy-loading efficient
   function lazyLoadVisible() {
     const vh = window.innerHeight;
     cards.forEach(card => {
@@ -136,11 +127,11 @@
   const firstActive = tabs.find(t => t.classList.contains('active')) || tabs[0];
   setActive(firstActive.dataset.target);
 
-  // Reload + Copy link helpers
+  // Reload + Copy link
   qsa('[data-action="reload"]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const frameId = btn.getAttribute('data-frame');
-      const iframe = document.getElementById(frameId);
+      const id = btn.getAttribute('data-frame');
+      const iframe = document.getElementById(id);
       if (iframe) iframe.src = iframe.src || iframe.getAttribute('data-src');
     });
   });
@@ -152,14 +143,14 @@
     });
   });
 
-  // Deep-link support (#campaign, etc.)
+  // Hash deep link (#campaign etc.)
   const hash = location.hash.replace(/^#/, '');
   if (hash) {
     const t = tabs.find(t => t.dataset.target === hash);
     if (t) setActive(hash);
   }
 
-  // Footer year
+  // Year
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 })();

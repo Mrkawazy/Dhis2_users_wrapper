@@ -4,38 +4,32 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sign in · Analytics Hub</title>
-  <link rel="stylesheet" href="/assets/style.css" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script type="module" src="../assets/firebaseConfig.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+  <script type="module" src="../assets/login.js"></script>
   <style>
-    .auth-card { max-width: 480px; margin: 6rem auto; padding: 1.25rem; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); background: var(--panel, #fff); }
-    .auth-card h1 { margin: 0 0 .75rem; font-size: 1.4rem; }
-    .auth-card form { display: grid; gap: .75rem; }
-    .row { display: grid; gap: .35rem; }
-    input { padding: .6rem .7rem; border: 1px solid #c9ced6; border-radius: 10px; }
-    .btn.primary { background: #1f6feb; color: #fff; }
-    .muted { opacity: .8; font-size: .9rem; }
-    .top-note { margin: 1rem auto; max-width: 520px; text-align: center; color: #b45309; }
+    .auth-card{max-width:480px;margin:6rem auto;padding:1.25rem;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);background:var(--panel);}
+    .auth-card h1{margin:0 0 .75rem;font-size:1.4rem;}
+    .auth-card form{display:grid;gap:.75rem;}
+    .row{display:grid;gap:.35rem;}
+    input{padding:.6rem .7rem;border:1px solid var(--border);border-radius:10px;background:var(--panel-2);color:var(--text);}
+    .btn.primary{background:var(--accent);color:#fff;border-color:transparent;}
+    .muted{opacity:.8;font-size:.9rem;}
+    .top-note{margin:1rem auto;max-width:520px;text-align:center;color:#b45309;}
   </style>
-  <script type="module" src="/assets/firebaseConfig.js"></script>
-  <script type="module" src="/assets/auth.js"></script>
-  <script type="module" src="/assets/login.js"></script>
 </head>
 <body>
   <div id="note" class="top-note" hidden></div>
   <div class="auth-card">
     <h1>Sign in</h1>
     <form id="loginForm">
-      <div class="row">
-        <label>Email</label>
-        <input type="email" id="email" required autocomplete="email" />
-      </div>
-      <div class="row">
-        <label>Password</label>
-        <input type="password" id="password" required autocomplete="current-password" />
-      </div>
+      <div class="row"><label>Email</label><input type="email" id="email" required autocomplete="email" /></div>
+      <div class="row"><label>Password</label><input type="password" id="password" required autocomplete="current-password" /></div>
       <button class="btn primary" type="submit">Sign in</button>
     </form>
-    <p class="muted">Don’t have an account? <a href="/auth/request.html">Request Account</a></p>
-    <p class="muted">Are you an admin? <a href="/auth/admin.html">Open Admin</a></p>
+    <p class="muted">Don’t have an account? <a href="./request.html">Request Account</a></p>
+    <p class="muted">Are you an admin? <a href="./admin.html">Open Admin</a></p>
   </div>
   <script>
     const url = new URL(location.href);

@@ -4,18 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Request Account · Analytics Hub</title>
-  <link rel="stylesheet" href="/assets/style.css" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script type="module" src="../assets/firebaseConfig.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+  <script type="module" src="../assets/request.js"></script>
   <style>
-    .auth-card { max-width: 720px; margin: 3rem auto; padding: 1.25rem; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); background: var(--panel, #fff); }
-    form { display: grid; gap: .75rem; grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .col-2 { grid-column: 1 / -1; }
-    .row { display: grid; gap: .35rem; }
-    input { padding: .6rem .7rem; border: 1px solid #c9ced6; border-radius: 10px; }
-    .btn.primary { background: #1f6feb; color: #fff; }
+    .auth-card{max-width:720px;margin:3rem auto;padding:1.25rem;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);background:var(--panel);}
+    form{display:grid;gap:.75rem;grid-template-columns:repeat(2,minmax(0,1fr));}
+    .col-2{grid-column:1 / -1;}
+    .row{display:grid;gap:.35rem;}
+    input{padding:.6rem .7rem;border:1px solid var(--border);border-radius:10px;background:var(--panel-2);color:var(--text);}
+    .btn.primary{background:var(--accent);color:#fff;border-color:transparent;}
   </style>
-  <script type="module" src="/assets/firebaseConfig.js"></script>
-  <script type="module" src="/assets/auth.js"></script>
-  <script type="module" src="/assets/request.js"></script>
 </head>
 <body>
   <div class="auth-card">
@@ -31,7 +31,7 @@
       <div class="row col-2"><label>Reason / Role</label><input id="reason" placeholder="e.g., MoHCC analyst (NHIS)"></div>
       <button class="btn primary col-2" type="submit">Submit request</button>
     </form>
-    <p class="muted">Already requested? <a href="Dhis2_users_wrapper/auth/login.html">Back to sign in</a></p>
+    <p class="muted">Already requested? <a href="./login.html">Back to sign in</a></p>
     <div id="done" class="muted" style="margin-top:1rem"></div>
   </div>
 </body>

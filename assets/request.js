@@ -1,5 +1,4 @@
-import { auth, db, createUserWithEmailAndPassword, doc, setDoc, serverTimestamp } from '/assets/auth.js';
-
+import { auth, db, createUserWithEmailAndPassword, doc, setDoc, serverTimestamp } from '../assets/auth.js';
 const f = document.getElementById('requestForm');
 const done = document.getElementById('done');
 
@@ -25,7 +24,7 @@ f?.addEventListener('submit', async (e)=>{
       createdAt: serverTimestamp(), updatedAt: serverTimestamp()
     });
     done.textContent = 'Request submitted. An administrator will review and approve your access.';
-    setTimeout(()=> location.href='/auth/login.html?pending=1', 1000);
+    setTimeout(()=> location.href='./login.html?pending=1', 1000);
   } catch(err){
     alert(err.message || 'Request failed');
   }

@@ -1,4 +1,4 @@
-import { auth, db, onSignOutClick } from '/assets/auth.js';
+import { auth, db, onSignOutClick } from '../assets/auth.js';
 import { collection, query, where, getDocs, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
 
@@ -40,7 +40,7 @@ rows.addEventListener('click', async (e)=>{
     await updateDoc(doc(db,'users',id),{ approved:true, updatedAt: new Date() });
     await load();
   } else if(act==='reject'){
-    if(confirm('Reject and mark this request?')){
+    if(confirm('Reject and flag this request?')){
       await updateDoc(doc(db,'users',id),{ approved:false, rejected:true, updatedAt: new Date() });
       await load();
     }
@@ -48,7 +48,7 @@ rows.addEventListener('click', async (e)=>{
 });
 
 onAuthStateChanged(auth, (user)=>{
-  if(!user){ location.href='/auth/login.html'; return; }
+  if(!user){ location.href='./login.html'; return; }
   document.getElementById('me').textContent = user.email || user.uid;
   load().catch(err=> alert(err.message || 'Failed to load'));
 });

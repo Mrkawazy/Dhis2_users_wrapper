@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./assets/style.css" />
   <script defer src="./assets/app.js"></script>
 
-  <!-- (Optional) Firebase guard -->
+  <!-- Firebase guard (optional but recommended) -->
   <script type="module" src="./assets/firebaseConfig.js"></script>
   <script type="module" src="./assets/auth.js"></script>
 </head>
@@ -47,7 +47,6 @@
 
   <main id="content" class="content" tabindex="-1">
     <section class="cards">
-
       <!-- Campaign -->
       <article class="card active" id="panel-campaign" role="tabpanel" aria-labelledby="tab-campaign">
         <header class="card-header">
@@ -55,12 +54,11 @@
           <div class="card-actions">
             <button class="btn small" data-action="copylink" data-slug="campaign">Copy Link</button>
             <button class="btn small" data-action="reload" data-frame="frame-campaign">Reload</button>
-            <!-- NEW: fullscreen button -->
             <button class="btn small" data-action="fullscreen" data-target="panel-campaign">Full Screen</button>
           </div>
         </header>
         <div class="viz-wrap">
-          <!-- Lazy-load: use data-src (no src initially) -->
+          <!-- lazy: load when active -->
           <iframe id="frame-campaign" title="Campaign Dashboard" loading="lazy" allowfullscreen
             data-src="https://public.tableau.com/views/DhisUsers-Campaign/Dashboard?:showVizHome=no&:embed=y&toolbar=yes"></iframe>
         </div>
@@ -134,7 +132,6 @@
         </div>
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
-
     </section>
   </main>
 
@@ -146,7 +143,7 @@
     </div>
   </footer>
 
-  <!-- (Optional) lock behind auth -->
+  <!-- Lock dashboards behind approval -->
   <script type="module">
     import { guardDashboard, onSignOutClick } from './assets/auth.js';
     guardDashboard?.({
