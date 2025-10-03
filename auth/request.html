@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Request Account · Analytics Hub</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+  <style>
+    .auth-card { max-width: 720px; margin: 3rem auto; padding: 1.25rem; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); background: var(--panel, #fff); }
+    form { display: grid; gap: .75rem; grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .col-2 { grid-column: 1 / -1; }
+    .row { display: grid; gap: .35rem; }
+    input { padding: .6rem .7rem; border: 1px solid #c9ced6; border-radius: 10px; }
+    .btn.primary { background: #1f6feb; color: #fff; }
+  </style>
+  <script type="module" src="/assets/firebaseConfig.js"></script>
+  <script type="module" src="/assets/auth.js"></script>
+  <script type="module" src="/assets/request.js"></script>
+</head>
+<body>
+  <div class="auth-card">
+    <h1>Request Account</h1>
+    <form id="requestForm">
+      <div class="row"><label>First name</label><input id="firstName" required></div>
+      <div class="row"><label>Last name</label><input id="lastName" required></div>
+      <div class="row"><label>National ID</label><input id="nationalId" required></div>
+      <div class="row"><label>Phone number</label><input id="phone" required></div>
+      <div class="row col-2"><label>Email</label><input id="email" type="email" required autocomplete="email"></div>
+      <div class="row"><label>Password</label><input id="password" type="password" required autocomplete="new-password" minlength="8"></div>
+      <div class="row"><label>Retype password</label><input id="password2" type="password" required minlength="8"></div>
+      <div class="row col-2"><label>Reason / Role</label><input id="reason" placeholder="e.g., MoHCC analyst (NHIS)"></div>
+      <button class="btn primary col-2" type="submit">Submit request</button>
+    </form>
+    <p class="muted">Already requested? <a href="/auth/login.html">Back to sign in</a></p>
+    <div id="done" class="muted" style="margin-top:1rem"></div>
+  </div>
+</body>
+</html>

@@ -8,8 +8,18 @@
   <link rel="preconnect" href="https://public.tableau.com">
   <link rel="stylesheet" href="assets/style.css" />
   <script defer src="assets/app.js"></script>
+  <!-- Firebase -->
+  <script type="module" src="/assets/firebaseConfig.js"></script>
+  <script type="module" src="/assets/auth.js"></script>
+  <style>
+    #authGate { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.6); color: #fff; z-index: 9999; font: 600 1rem/1.2 system-ui; }
+    #authGate.hidden { display:none; }
+    .auth-actions { display:flex; gap:.5rem; align-items:center; }
+  </style>
 </head>
 <body>
+  <div id="authGate">Checking access…</div>
+
   <header class="site-header">
     <div class="brand">
       <svg viewBox="0 0 24 24" aria-hidden="true" class="logo"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.77 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z"/></svg>
@@ -18,9 +28,12 @@
         <p class="subtitle">Campaign · CBS · NHIS · CHMIS · IMPILO</p>
       </div>
     </div>
-    <div class="header-actions">
+    <div class="header-actions auth-actions">
       <button id="themeToggle" class="btn" aria-label="Toggle dark mode">🌓</button>
       <button id="viewAllToggle" class="btn" aria-pressed="false">🔳 View All</button>
+      <span id="who" style="opacity:.8"></span>
+      <a class="btn" href="/auth/login.html" id="loginLink">Login</a>
+      <button class="btn" id="logoutBtn" style="display:none">Logout</button>
     </div>
   </header>
 
@@ -33,9 +46,7 @@
   </nav>
 
   <main id="content" class="content" tabindex="-1">
-    <!-- Cards container (grid when View All is on) -->
     <section class="cards" id="cards">
-
       <article class="card active" id="panel-campaign" role="tabpanel" aria-labelledby="tab-campaign">
         <header class="card-header">
           <h2>Campaign Dashboard</h2>
@@ -90,7 +101,7 @@
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
 
-<article class="card" id="panel-chmis" role="tabpanel" aria-labelledby="tab-chmis">
+      <article class="card" id="panel-chmis" role="tabpanel" aria-labelledby="tab-chmis">
         <header class="card-header">
           <h2>CHMIS Dashboard</h2>
           <div class="card-actions">
@@ -107,7 +118,8 @@
         </div>
         <footer class="card-footer">Source: Tableau Public</footer>
       </article>
-<article class="card" id="panel-impilo" role="tabpanel" aria-labelledby="tab-impilo">
+
+      <article class="card" id="panel-impilo" role="tabpanel" aria-labelledby="tab-impilo">
         <header class="card-header">
           <h2>Impilo Dashboard</h2>
           <div class="card-actions">
@@ -137,15 +149,32 @@
     </div>
   </footer>
 
-  <!-- About Modal -->
   <dialog id="aboutDialog">
     <form method="dialog" class="about">
       <h3>About this site</h3>
-      <p>This lightweight, accessible gallery hosts three Tableau dashboards with deep links, dark mode, and a view-all option. Add more by duplicating a card in <code>index.html</code>.</p>
+      <p>This gallery hosts Tableau dashboards behind a login + admin approval gate.</p>
       <menu>
         <button class="btn" value="cancel">Close</button>
       </menu>
     </form>
   </dialog>
+
+  <script type="module">
+    import { guardDashboard, onSignOutClick } from '/assets/auth.js';
+    guardDashboard({
+      onApproved: async (user) => {
+        document.getElementById('authGate').classList.add('hidden');
+        document.getElementById('loginLink').style.display = 'none';
+        document.getElementById('logoutBtn').style.display = 'inline-flex';
+        document.getElementById('who').textContent = user.email ?? '';
+      },
+      onPending: () => {
+        const g = document.getElementById('authGate');
+        g.textContent = 'Your account is pending approval by an administrator. You will be signed out.';
+        setTimeout(() => location.href = '/auth/login.html?pending=1', 1200);
+      }
+    });
+    document.getElementById('logoutBtn').addEventListener('click', onSignOutClick);
+  </script>
 </body>
 </html>
